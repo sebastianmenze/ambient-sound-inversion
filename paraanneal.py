@@ -75,7 +75,7 @@ def parafunc(i_solution,sim_whale_location_old,p_sim_whale,tl_db,db_true,n_sim_w
                 sse_old=sse_new
             
             else:    
-                if  random.expovariate(temp) >1:            
+                if  random.expovariate(1/temp) >1:            
                     sim_whale_location_old[ix_selected_simwhale]=new_location  
                     likelihood_old=likelihood_new
                     sse_old=sse_new
@@ -85,7 +85,7 @@ def parafunc(i_solution,sim_whale_location_old,p_sim_whale,tl_db,db_true,n_sim_w
                 likelihood_old=likelihood_new
                 sse_old=sse_new
              else:    
-                if  random.expovariate(temp) >1:            
+                if  random.expovariate(1/temp) >1:            
                     sim_whale_location_old[ix_selected_simwhale]=new_location        
                     likelihood_old=likelihood_new
                     sse_old=sse_new
@@ -104,7 +104,7 @@ if __name__ == '__main__':
 
 #    workfolder = r'C:\Users\Seb\Documents\passive_acoustic_work\weddell_sea_scenarios'
 #    os.chdir(workfolder)
-    n_iterations=30000
+    n_iterations=20000
     n_solutions=50
     p_min=1e11
     p_max=1e13
