@@ -44,6 +44,7 @@ def parafunc(i_solution,sim_whale_location_old,p_sim_whale,tl_db,db_true,n_sim_w
         
         # update temperature
         temp= t_start*np.power( (1-(i_iteration)/n_iterations) , t_exponent )
+        #print('Temperature is '+str(temp))
         
         ix_selected_simwhale=random.randint(0,n_sim_whale-1)
         new_location=random.randint(1,n_source_locations)
@@ -66,30 +67,38 @@ def parafunc(i_solution,sim_whale_location_old,p_sim_whale,tl_db,db_true,n_sim_w
         
         # new misfit and likelihood
         sse_new = 0.5 * np.sum(  ((db_new - db_true)**2) / (sigma_db**2)   )
-        likelihood_new= np.exp( - sse_new ) 
+        likelihood_new= np.exp( - np.float(sse_new) ) 
         
-        if likelihood_new==0:    
+        if (likelihood_new==0 and likelihood_old==0):    
             if sse_new <=  sse_old:
                 sim_whale_location_old[ix_selected_simwhale]=new_location  
                 likelihood_old=likelihood_new
+                print('Better solution (SSE) '+str(i_solution)+' sse change is '+str(sse_new-sse_old))
                 sse_old=sse_new
+                
             
             else:    
                 if  random.expovariate(1/temp) >1:            
                     sim_whale_location_old[ix_selected_simwhale]=new_location  
                     likelihood_old=likelihood_new
+                    print('Random new solution (SSE) '+str(i_solution)+' sse change is '+str(sse_new-sse_old))
                     sse_old=sse_new
+                
         else:
              if likelihood_old <= likelihood_new:
                 sim_whale_location_old[ix_selected_simwhale]=new_location  
                 likelihood_old=likelihood_new
+                print('Better solution (L(m)) '+str(i_solution)+' sse change is '+str(sse_new-sse_old))
                 sse_old=sse_new
+                
              else:    
                 if  random.expovariate(1/temp) >1:            
                     sim_whale_location_old[ix_selected_simwhale]=new_location        
                     likelihood_old=likelihood_new
+                    print('Random new solution (L(m)) '+str(i_solution)+' sse change is '+str(sse_new-sse_old))
                     sse_old=sse_new
-        
+                
+                
         likelihood.append(likelihood_old)
         sse.append(sse_old)
 
@@ -104,11 +113,10 @@ if __name__ == '__main__':
 
 #    workfolder = r'C:\Users\Seb\Documents\passive_acoustic_work\weddell_sea_scenarios'
 #    os.chdir(workfolder)
-    n_iterations=20000
-    n_solutions=50
+    n_iterations=500
+    n_solutions=2
     p_min=1e11
     p_max=1e13
-    t_exponent=2
     sigma_db=1
     
     scenariofiles=glob.glob('scenario*.mat')
@@ -158,7 +166,7 @@ if __name__ == '__main__':
                      est_p_sum[i]=p_sim_whale[i]*n_sim_whale
         
             scipy.io.savemat('solution'+selectedfile[8:-3]+'mat', mdict={'likelihood': likelihood,'sse':sse,'est_p_sum':est_p_sum,'est_p':est_p,'likelihood_iterations':likelihood_iterations,'sse_iterations':sse_iterations})
-
+            print('--> Finished file: '+selectedfile)
 
     
     
