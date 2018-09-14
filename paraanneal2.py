@@ -114,7 +114,12 @@ def parafunc(i_solution,sim_whale_location_old,p_sim_whale,tl_db,db_true,n_sim_w
         likelihood[i_iteration]=likelihood_old
         sse[i_iteration]=sse_old
 
-#        print('Iteration '+str(i_iteration).zfill(6)+' L(m): '+str(likelihood_old)+' time: '+str(toc-tic) )
+#        print('Iteration '+str(i_iteration).zfill(6)+' SSE: '+str(sse_old))
+#        print('percentage: '+str(np.array(i_iteration)/np.array(n_iterations))+' SSE: '+str(sse_old))
+        if i_iteration/float(n_iterations)*100 - round(i_iteration/float(n_iterations)*100) == 0:
+            print('sol: '+str(i_solution)+' perc: {:.0%}'.format(i_iteration/float(n_iterations)))
+        
+        
     toc = time.clock()    
     print('solution '+str(i_solution)+' completed in: '+str(toc-tic)+' L(m)= '+str(likelihood_old))    
     return sim_whale_location_old,likelihood,sse
