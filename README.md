@@ -66,8 +66,11 @@ matlab code for parameter optimization (in older format, not used for paper):
 
 sa_parameter_estimation.m
 
-Schematic view of source pressure grid change during simulated annealing over 20000 iterations. Colored dots represent the source pressure at each node in μPa (yellow to red hues, normalized for each panel). Lower right plot shows the true source pressure grid and recorder locations where the received levels in dB re 1 μPa are marked by blue and pink triangles. ![](source_distribution_change_over_iterations.png)
+Schematic view of source pressure grid change during simulated annealing over 20000 iterations. Colored dots represent the source pressure at each node in μPa (yellow to red hues, normalized for each panel). Lower right plot shows the true source pressure grid and recorder locations where the received levels in dB re 1 μPa are marked by blue and pink triangles.
+
+![](source_distribution_change_over_iterations.png)
 
 Flowchart of the inversion method and simulated annealing parameter estimation algorithm. Input variables are marked green, the output red. Grey round boxes represent the computational parts of the method. λ is the simulated annealing “temperature” parameter that steers how much decreases in likelihood are tolerated at each iteration. 
+
 ![](algorithm.png)
 
