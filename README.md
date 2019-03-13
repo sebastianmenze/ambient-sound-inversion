@@ -5,8 +5,9 @@ by Sebastian Menze, Daniel Zitterbart, Martin Biuw and Olaf Boebel
 paper submitted to JASA in 2019
 contact: sebastian.menze@hi.no
 
-code and development by Sebastian Menze
-created and tested with Matlab 2016a and Python 2.7Parallel computing paramter estimation code used to estimate marine mammal distribution from ambient sound spectra 
+Parallel computing paramter estimation code used to estimate marine mammal distribution from ambient sound spectra 
+development by Sebastian Menze
+created and tested with Matlab 2016a and Python 2.7
 Run on the Hexagon UIB unix cluster and fram.sigma2.no clusterwith with one paraanneal.py running per 32 cpu node
 
 # These liberaries needs to be downloaded separately:
@@ -49,11 +50,8 @@ received_pressure.m
 matlab code for parameter optimization (in older format, not used for paper)
 sa_parameter_estimation.m
 
+Schematic view of source pressure grid change during simulated annealing over 20000 iterations. Colored dots represent the source pressure at each node in μPa (yellow to red hues, normalized for each panel). Lower right plot shows the true source pressure grid and recorder locations where the received levels in dB re 1 μPa are marked by blue and pink triangles. ![](source_distribution_change_over_iterations.png)
 
-Example source node grid. For each nod the marine mammal source level is estimated
-![](simulated-grid-nodes-example.PNG)
+Flowchart of the inversion method and simulated annealing parameter estimation algorithm. Input variables are marked green, the output red. Grey round boxes represent the computational parts of the method. λ is the simulated annealing “temperature” parameter that steers how much decreases in likelihood are tolerated at each iteration. 
+![](algorithm.png)
 
-The algorithm:
-![](parameter_estimation_algorithm.PNG)
-
-Intial development started in my master thesis: https://www.researchgate.net/publication/312576168_Estimating_fin_whale_distribution_from_ambient_noise_spectra_using_Bayesian_inversion
